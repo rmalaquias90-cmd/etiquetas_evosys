@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gerador de Etiquetas - Evosys</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg: #f0f2ff;
+            --panel: #ffffff;
+            --border: #d7dcf9;
+            --accent: #4c6ef5;
+            --accent-strong: #1f2a37;
+            --accent-soft: rgba(76, 110, 245, 0.15);
+            --text: #1f2a37;
+            --muted: #6c7482;
+            --header-bg: #ffffff;
+            --header-text: #1f2a37;
+            --shadow: 0 20px 45px rgba(31, 42, 55, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at top, rgba(76, 110, 245, 0.08), transparent 45%),
+                        linear-gradient(180deg, #f9fbff 0%, #eef2ff 100%);
+            color: var(--text);
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 32px;
+            gap: 24px;
+        }
+
+        .top-header {
+            background: var(--header-bg);
+            border-radius: 24px;
+            padding: 24px 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            color: var(--header-text);
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .logo {
+            height: 50px;
+            width: 50px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+            padding: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            color: var(--header-text);
+        }
+
+        .brand .subtitle {
+            margin: 4px 0 0;
+            color: rgba(248, 250, 252, 0.75);
+            font-size: 0.95rem;
+        }
+
+        .top-nav {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            font-weight: 600;
+            justify-self: center;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            color: var(--accent-strong);
+            padding: 8px 18px;
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .top-nav a:hover,
+        .top-nav a:focus-visible {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: rgba(76, 110, 245, 0.3);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .helper {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .primary-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(76, 110, 245, 0.35);
+        }
+
+        .primary-btn.ghost {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 10px 22px;
+        }
+
+        .ghost-link {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: min(1200px, 100%);
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--panel);
+            border-radius: 24px;
+            padding: 24px 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content .helper {
+            color: #0f172a;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .status-card {
+            border: 1px solid rgba(76, 110, 245, 0.35);
+            background: rgba(76, 110, 245, 0.08);
+            padding: 18px 22px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .section-header h2 {
+            margin: 4px 0 0;
+            font-size: 1.35rem;
+        }
+
+        .form-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        input,
+        select {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fff;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="file"] {
+            border: 1px dashed var(--border);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input:focus,
+        select:focus,
+        .file-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(76, 110, 245, 0.2);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .grid-two {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .split-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .grid-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f8fafc;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        td input[type="number"] {
+            width: 90px;
+            padding: 6px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        td button {
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            margin-top: 12px;
+        }
+
+        .checkbox input {
+            accent-color: var(--accent);
+            width: 18px;
+            height: 18px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .top-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-content {
+                flex-direction: column;
+            }
+
+            .actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <header class="top-header">
+            <div class="brand">
+                {% if logo_url %}
+                    <img src="{{ logo_url }}" alt="Logo" class="logo">
+                {% endif %}
+                <div>
+                    <p class="eyebrow">Evosys</p>
+                    <h1>Gerador de etiquetas</h1>
+                    <p class="subtitle">Crie etiquetas de transporte prontas para impressão Zebra com poucos cliques.</p>
+                </div>
+            </div>
+            <nav class="top-nav">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('registros') }}">Registros</a>
+                <a href="{{ url_for('configuracoes') }}">Configurações</a>
+                {% if is_admin %}
+                    <a href="{{ url_for('usuarios') }}">Usuários</a>
+                {% endif %}
+            </nav>
+            <div class="user-actions">
+                <span class="helper">{{ username }}</span>
+                <a href="{{ url_for('logout') }}" class="primary-btn ghost">Sair</a>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="card hero">
+                <div class="hero-content">
+                    <div>
+                        <strong>Nova geração de etiquetas</strong>
+                        <p class="helper">Importe múltiplos XMLs, ajuste quantidades e escolha o layout ideal antes de imprimir.</p>
+                    </div>
+                    <div class="hero-actions">
+                        <span class="helper">Atalhos rápidos</span>
+                        <a href="{{ url_for('configuracoes') }}" class="ghost-link">Configurações</a>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <strong>Dados criptografados localmente.</strong>
+                    <span>Importe vários XMLs e mantenha o controle somente sobre o volume editável.</span>
+                </div>
+            </section>
+
+            <form action="/gerar" method="post" enctype="multipart/form-data" class="form-layout">
+                <section class="card">
+                    <div class="section-header">
+                        <div>
+                            <p class="eyebrow">Passo 1</p>
+                            <h2>Importar XML da NF-e</h2>
+                        </div>
+                        <span class="helper">Selecione arquivos XML válidos para preencher a grade automaticamente.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="xmls-upload">Importar XML da NF-e (múltiplos)</label>
+                        <input id="xmls-upload" class="file-input" type="file" accept=".xml" multiple>
+                        <span id="xml-feedback" class="helper">Diversos arquivos podem ser carregados ao mesmo tempo.</span>
+                    </div>
+                </section>
+
+                <section class="card split-card">
+                    <div class="section-header">
+                        <div>
+                            <p class="eyebrow">Passo 2</p>
+                            <h2>Dados da etiqueta</h2>
+                        </div>
+                        <span class="helper">Preencha os campos abaixo se não importou XMLs ou deseja ajustes pontuais.</span>
+                    </div>
+                    <div class="form-grid" id="single-form-section">
+                        <div class="form-group">
+                            <label for="transportadora">Transportadora</label>
+                            <input id="transportadora" type="text" name="transportadora" placeholder="Evosys Logística" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nf">Número da NF</label>
+                            <input id="nf" type="text" name="nf" placeholder="ex: 123456789" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="razao_social">Razão Social</label>
+                            <input id="razao_social" type="text" name="razao_social" placeholder="Empresa destinatária" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endereco">Endereço de entrega</label>
+                            <input id="endereco" type="text" name="endereco" placeholder="Rua das Flores, 1000, Sala 08" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bairro">Bairro</label>
+                            <input id="bairro" type="text" name="bairro" placeholder="Centro" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cidade">Cidade</label>
+                            <input id="cidade" type="text" name="cidade" placeholder="São Paulo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <input id="estado" type="text" name="estado" placeholder="SP" required>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div id="grid-section" class="grid-panel" style="display:none;">
+                        <div class="status-card">
+                            <strong>Grade de etiquetas importadas</strong>
+                            <span>(Edite apenas a coluna Volumes)</span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table id="xml-grid">
+                                <thead>
+                                    <tr>
+                                        <th>NF</th>
+                                        <th>Transportadora</th>
+                                        <th>Razão Social</th>
+                                        <th>Endereço</th>
+                                        <th>Cidade</th>
+                                        <th>UF</th>
+                                        <th>Volumes</th>
+                                        <th>Remover</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="xml-grid-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        <div>
+                            <p class="eyebrow">Passo 3</p>
+                            <h2>Volumes e opções</h2>
+                        </div>
+                        <span class="helper">Defina quantos volumes ou formate a etiqueta antes de gerar o PDF.</span>
+                    </div>
+                    <div class="form-grid grid-two" id="volumes-section">
+                        <div class="form-group">
+                            <label for="volumes">Quantidade de volumes</label>
+                            <input id="volumes" type="number" name="volumes" min="1" value="1" required>
+                            <span class="helper">Cada volume gera uma etiqueta separada.</span>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label for="formato">Formato</label>
+                            <select id="formato" name="formato" required>
+                                {% for formato in formatos %}
+                                    <option value="{{ formato.value }}"
+                                        {% if formato.value == "100x50" %}selected{% endif %}>
+                                        {{ formato.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <span class="helper">Escolha o tamanho físico da etiqueta.</span>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="imprimir" id="imprimir">
+                        <label for="imprimir">Imprimir automaticamente após gerar</label>
+                    </div>
+                </section>
+
+                <div class="actions">
+                    <div class="helper">&nbsp;</div>
+                    <button class="primary-btn" type="submit">Gerar e imprimir etiquetas</button>
+                </div>
+                <div id="submission-feedback" class="helper" aria-live="polite"></div>
+            </form>
+        </main>
+    </div>
+    <script>
+        (function () {
+            const xmlsInput = document.getElementById("xmls-upload");
+            const xmlFeedback = document.getElementById("xml-feedback");
+            const form = document.querySelector("form");
+            const submitButton = form.querySelector("button[type=submit]");
+            const submissionFeedback = document.getElementById("submission-feedback");
+            const nfField = document.getElementById("nf");
+            const gridSection = document.getElementById("grid-section");
+            const singleFormSection = document.getElementById("single-form-section");
+            const gridBody = document.getElementById("xml-grid-body");
+            const volumesSection = document.getElementById("volumes-section");
+            const volumesField = document.getElementById("volumes");
+            let gridData = [];
+
+            const fillField = (id, value) => {
+                if (value === undefined || value === null) return;
+                const field = document.getElementById(id);
+                if (field) {
+                    field.value = value;
+                }
+            };
+
+            const showSubmissionMessage = (message, isError = false) => {
+                submissionFeedback.textContent = message;
+                submissionFeedback.style.color = isError ? "#d9534f" : "inherit";
+            };
+
+            const triggerDownload = (url, filename) => {
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            };
+
+            const handlePrint = (url) => {
+                const printWindow = window.open(url, "_blank");
+                if (printWindow) {
+                    printWindow.addEventListener("load", () => {
+                        printWindow.focus();
+                        printWindow.print();
+                    });
+                } else {
+                    showSubmissionMessage("Popup bloqueado. O arquivo será baixado.", true);
+                    triggerDownload(url, "etiqueta.pdf");
+                }
+            };
+
+            const updateVisibility = () => {
+                const hasItems = gridData.length > 0;
+                gridSection.style.display = hasItems ? "block" : "none";
+                singleFormSection.style.display = hasItems ? "none" : "grid";
+                // Ativa/desativa validação nativa do formulário conforme uso de grade
+                if (hasItems) {
+                    form.setAttribute("novalidate", "true");
+                } else {
+                    form.removeAttribute("novalidate");
+                }
+                // Desabilita/habilita campos do formulário único para não serem validados quando escondidos
+                const singleInputs = singleFormSection.querySelectorAll("input, select, textarea");
+                singleInputs.forEach(el => {
+                    if (hasItems) {
+                        el.setAttribute("data-required", el.required ? "1" : "0");
+                        el.required = false;
+                        el.disabled = true;
+                    } else {
+                        // restaura required se estava antes
+                        const wasReq = el.getAttribute("data-required") === "1";
+                        if (wasReq) el.required = true;
+                        el.disabled = false;
+                    }
+                });
+                // Regras para a seção de volumes:
+                // - Com mais de 1 XML: esconder
+                // - Com 1 XML: mostrar e sincronizar com a grade
+                // - Sem grade: mostrar (formulário único)
+                if (gridData.length >= 2) {
+                    volumesSection.style.display = "none";
+                    volumesField.removeAttribute("required");
+                } else {
+                    volumesSection.style.display = "grid";
+                    volumesField.setAttribute("required", "true");
+                    if (gridData.length === 1) {
+                        volumesField.value = gridData[0].volumes || 1;
+                    }
+                }
+            };
+
+            const renderGrid = () => {
+                gridBody.innerHTML = "";
+                gridData.forEach((item, idx) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">${item.nf || ""}</td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">${item.transportadora || ""}</td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">${item.razao_social || ""}</td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">${item.endereco || ""}</td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">${item.cidade || ""}</td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">${item.estado || ""}</td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">
+                            <input type="number" min="1" value="${item.volumes || 1}" style="width:90px; padding:6px 8px; border:1px solid var(--border); border-radius:8px;">
+                        </td>
+                        <td style="padding:10px; border-bottom:1px solid var(--border);">
+                            <button type="button" data-idx="${idx}" class="remove-row" style="background:#ef4444; color:#fff; border:none; border-radius:8px; padding:6px 10px; cursor:pointer;">Remover</button>
+                        </td>
+                    `;
+                    const input = tr.querySelector("input");
+                    input.addEventListener("input", () => {
+                        const v = parseInt(input.value || "1", 10);
+                        gridData[idx].volumes = isNaN(v) || v < 1 ? 1 : v;
+                        if (gridData.length === 1) {
+                            volumesField.value = gridData[0].volumes;
+                        }
+                    });
+                    tr.querySelector(".remove-row").addEventListener("click", () => {
+                        gridData.splice(idx, 1);
+                        renderGrid();
+                        updateVisibility();
+                    });
+                    gridBody.appendChild(tr);
+                });
+            };
+
+            if (xmlsInput) {
+                xmlsInput.addEventListener("change", async (event) => {
+                    const files = Array.from(event.target.files || []);
+                    if (!files.length) return;
+                    const valid = files.every(f => f.name.toLowerCase().endsWith(".xml"));
+                    if (!valid) {
+                        xmlFeedback.textContent = "Escolha arquivos XML válidos.";
+                        return;
+                    }
+                    xmlFeedback.textContent = "Importando dados...";
+                    const formData = new FormData();
+                    files.forEach(f => formData.append("xmls", f));
+                    try {
+                        const response = await fetch("/importar-xmls", { method: "POST", body: formData, credentials: "same-origin" });
+                        const payload = await response.json();
+                        if (!response.ok) {
+                            xmlFeedback.textContent = payload.error || "Falha ao importar.";
+                            alert(payload.error || "Falha ao importar XMLs.");
+                            return;
+                        }
+                        const items = payload.items || [];
+                        gridData = gridData.concat(items.map(x => ({
+                            nf: x.nf || "",
+                            transportadora: x.transportadora || "",
+                            razao_social: x.razao_social || "",
+                            endereco: x.endereco || "",
+                            cidade: x.cidade || "",
+                            estado: x.estado || "",
+                            volumes: x.volumes || 1
+                        })));
+                        renderGrid();
+                        updateVisibility();
+                        xmlFeedback.textContent = `Importados ${items.length} XML(s).`;
+                    } catch (err) {
+                        console.error(err);
+                        xmlFeedback.textContent = "Erro ao importar XMLs.";
+                        alert("Erro ao importar XMLs.");
+                    }
+                });
+            }
+
+            // Se o usuário editar o campo de volumes com 1 XML, sincroniza a linha da grade
+            volumesField.addEventListener("input", () => {
+                if (gridData.length === 1) {
+                    const v = parseInt(volumesField.value || "1", 10);
+                    gridData[0].volumes = isNaN(v) || v < 1 ? 1 : v;
+                    renderGrid();
+                }
+            });
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                if (!gridData.length) {
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        return;
+                    }
+                }
+
+                const formData = new FormData(form);
+                submitButton.disabled = true;
+                showSubmissionMessage("Gerando etiqueta...");
+                console.log("[submit] grid items:", gridData.length);
+
+                try {
+                    let response;
+                    if (gridData.length) {
+                        const payload = {
+                            items: gridData.map(x => ({
+                                nf: x.nf,
+                                transportadora: x.transportadora,
+                                razao_social: x.razao_social,
+                                endereco: x.endereco,
+                                cidade: x.cidade,
+                                estado: x.estado,
+                                volumes: x.volumes
+                            })),
+                            formato: formData.get("formato")
+                        };
+                        console.log("[submit] POST /gerar-lote payload:", payload);
+                        response = await fetch("/gerar-lote", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload),
+                            credentials: "same-origin"
+                        });
+                    } else {
+                        console.log("[submit] POST /gerar formData");
+                        response = await fetch("/gerar", { method: "POST", body: formData, credentials: "same-origin" });
+                    }
+
+                    if (response.redirected) {
+                        console.warn("[submit] redirected to:", response.url);
+                        window.location.href = response.url;
+                        return;
+                    }
+
+                    const ct = response.headers.get("content-type") || "";
+                    if (!response.ok || !ct.includes("application/pdf")) {
+                        let msg = "";
+                        try {
+                            const maybeJson = await response.json();
+                            msg = maybeJson && maybeJson.error ? maybeJson.error : JSON.stringify(maybeJson);
+                        } catch (_) {
+                            msg = await response.text();
+                        }
+                        console.error("[submit] erro HTTP:", response.status, msg);
+                        showSubmissionMessage(msg || "Erro ao gerar a etiqueta.", true);
+                        alert(msg || "Erro ao gerar a etiqueta.");
+                        return;
+                    }
+
+                    const blob = await response.blob();
+                    const url = URL.createObjectURL(blob);
+                    const imprimir = formData.get("imprimir");
+                    const filename = gridData.length ? `etiquetas_lote.pdf` : `etiqueta_${nfField?.value || "download"}.pdf`;
+
+                    if (imprimir) {
+                        handlePrint(url);
+                        showSubmissionMessage("Etiqueta enviada para impressão.");
+                    } else {
+                        triggerDownload(url, filename);
+                        showSubmissionMessage("Etiqueta pronta para download.");
+                    }
+
+                    setTimeout(() => URL.revokeObjectURL(url), 3000);
+                } catch (err) {
+                    console.error(err);
+                    showSubmissionMessage("Falha ao gerar a etiqueta.", true);
+                    alert("Falha ao gerar a etiqueta.");
+                } finally {
+                    submitButton.disabled = false;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

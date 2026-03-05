@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @page {
+            size: 100mm 150mm;
+            margin: 5mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .box {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .titulo {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="titulo">ETIQUETA DE TRANSPORTE</div>
+
+        <strong>Remetente:</strong><br>
+        {{ dados.remetente }}<br><br>
+
+        <strong>Destinatário:</strong><br>
+        {{ dados.destinatario }}<br>
+        {{ dados.endereco }}<br>
+        {{ dados.cidade }} - CEP: {{ dados.cep }}<br>
+        Tel: {{ dados.telefone }}<br><br>
+
+        <strong>Rastreamento:</strong><br>
+        {{ dados.rastreamento }}<br><br>
+
+        Data: {{ dados.data }}
+    </div>
+</body>
+</html>

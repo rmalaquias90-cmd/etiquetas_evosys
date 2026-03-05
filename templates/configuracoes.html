@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configurações</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg: #f0f2ff;
+            --panel: #ffffff;
+            --border: #d7dcf9;
+            --accent: #4c6ef5;
+            --accent-soft: rgba(76, 110, 245, 0.15);
+            --text: #1f2a37;
+            --muted: #6c7482;
+            --shadow: 0 20px 45px rgba(31, 42, 55, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at top, rgba(76, 110, 245, 0.08), transparent 45%),
+                        linear-gradient(180deg, #f9fbff 0%, #eef2ff 100%);
+            color: var(--text);
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 32px;
+        }
+
+        .top-header {
+            background: var(--panel);
+            border-radius: 24px;
+            padding: 20px 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            height: 46px;
+            width: 46px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+            padding: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .brand .helper {
+            margin: 4px 0 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .top-nav {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            color: var(--muted);
+            padding: 6px 14px;
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .top-nav a:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .primary-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(76, 110, 245, 0.35);
+        }
+
+        .content {
+            width: min(960px, 100%);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--panel);
+            border-radius: 24px;
+            padding: 28px 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        input[type="file"] {
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .helper {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .preview {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview img {
+            max-width: 320px;
+            max-height: 140px;
+            object-fit: contain;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            background: #fff;
+        }
+
+        .message {
+            padding: 14px 16px;
+            background: rgba(76, 110, 245, 0.08);
+            border-radius: 12px;
+            border: 1px solid rgba(76, 110, 245, 0.3);
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            .top-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <header class="top-header">
+            <div class="brand">
+                {% if logo_url %}
+                    <img src="{{ logo_url }}" alt="Logo" class="logo">
+                {% endif %}
+                <div>
+                    <h1>Configurações</h1>
+                    <div class="helper">Usuário: {{ username }}</div>
+                </div>
+            </div>
+            <nav class="top-nav">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('registros') }}">Registros</a>
+                {% if is_admin %}
+                    <a href="{{ url_for('usuarios') }}">Usuários</a>
+                {% endif %}
+            </nav>
+            <div class="user-actions">
+                <a href="{{ url_for('logout') }}" class="primary-btn">Sair</a>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="card">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Identidade visual</p>
+                        <h2>Logo da empresa</h2>
+                    </div>
+                </div>
+                <form action="{{ url_for('configuracoes') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="logo">Arquivo de logo</label>
+                        <input id="logo" type="file" name="logo" accept=".png,.jpg,.jpeg,.gif,.bmp">
+                        <span class="helper">Formatos aceitos: PNG, JPG, GIF, BMP. O logo aparece nas etiquetas.</span>
+                    </div>
+                    <div class="form-group">
+                        <button class="primary-btn" type="submit">Salvar</button>
+                    </div>
+                </form>
+
+                {% if logo_url %}
+                    <div class="preview">
+                        <span class="helper">Pré-visualização</span>
+                        <img src="{{ logo_url }}" alt="Logo atual">
+                    </div>
+                {% endif %}
+
+                {% if message %}
+                    <div class="message">{{ message }}</div>
+                {% endif %}
+            </section>
+        </main>
+    </div>
+</body>
+</html>

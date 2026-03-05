@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - Evosys</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg: #f0f2ff;
+            --panel: #ffffff;
+            --border: #d7dcf9;
+            --accent: #4c6ef5;
+            --accent-soft: rgba(76, 110, 245, 0.15);
+            --text: #1f2a37;
+            --muted: #6c7482;
+            --shadow: 0 20px 45px rgba(31, 42, 55, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at top, rgba(76, 110, 245, 0.08), transparent 45%),
+                        linear-gradient(180deg, #f9fbff 0%, #eef2ff 100%);
+            color: var(--text);
+        }
+
+        .app-shell {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .auth-card {
+            width: min(420px, 100%);
+            background: var(--panel);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .brand p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .brand img {
+            height: 48px;
+            width: 48px;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 6px;
+            background: #fff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        input {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fff;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(92, 106, 196, 0.3);
+        }
+
+        .helper {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .primary-btn {
+            border: none;
+            border-radius: 14px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--accent);
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(76, 110, 245, 0.35);
+        }
+
+        .error {
+            font-size: 0.9rem;
+            color: #dc2626;
+        }
+    </style>
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</head>
+<body>
+    <div class="app-shell">
+        <main class="auth-card">
+            <div class="brand">
+                {% if logo_url %}
+                    <img src="{{ logo_url }}" alt="Logo">
+                {% endif %}
+                <div>
+                    <h1>Entrar</h1>
+                    <p>Acesse o gerador de etiquetas Evosys</p>
+                </div>
+            </div>
+            <form method="post" action="{{ url_for('login', **request.args) }}">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input id="username" name="username" type="text" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input id="password" name="password" type="password" required>
+                </div>
+                <button class="primary-btn" type="submit">Entrar</button>
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+                <p class="helper">Padrão: admin / admin</p>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

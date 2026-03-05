@@ -1,0 +1,4 @@
+flask
+gunicorn
+reportlab
+pillow
