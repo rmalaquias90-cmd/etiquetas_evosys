@@ -7,16 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-        :root {
-            --bg: #f0f2ff;
-            --panel: #ffffff;
-            --border: #d7dcf9;
-            --accent: #4c6ef5;
-            --accent-soft: rgba(76, 110, 245, 0.15);
-            --text: #1f2a37;
-            --muted: #6c7482;
-            --shadow: 0 20px 45px rgba(31, 42, 55, 0.15);
-        }
+        :root { --bg:#f6f7f9; --panel:#fff; --border:#e5e7eb; --accent:#0f62fe; --accent-strong:#0b4cdb; --accent-soft:#e7f0ff; --text:#111827; --muted:#6b7280; --shadow:0 8px 24px rgba(15,23,42,.06); --fs-xs:.75rem; --fs-sm:.85rem; --fs-md:.95rem; --fs-base:1rem; --fs-lg:1.25rem; --fs-xl:1.5rem; --fs-xxl:1.75rem;}
 
         * {
             box-sizing: border-box;
@@ -25,77 +16,54 @@
         body {
             margin: 0;
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background: radial-gradient(circle at top, rgba(76, 110, 245, 0.08), transparent 45%),
-                        linear-gradient(180deg, #f9fbff 0%, #eef2ff 100%);
+            background: var(--bg);
             color: var(--text);
         }
 
-        .app-shell {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            padding: 28px 32px;
-        }
+        .app-shell { min-height:100vh; display:flex; flex-direction:column; gap:24px; padding:32px; }
 
-        .top-header {
-            background: var(--panel);
-            border-radius: 24px;
-            padding: 22px 28px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
+        .top-header { background:#fff; border-radius:16px; padding:16px 24px; border:1px solid var(--border); display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:16px; box-shadow:var(--shadow); }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        .brand { display:flex; align-items:center; gap:18px; }
 
-        .brand img {
-            height: 46px;
-            width: 46px;
-            object-fit: contain;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            padding: 6px;
-            background: #fff;
-        }
+        .brand-logo { height:88px; width:auto; object-fit:contain; border-radius:8px; }
 
-        .brand h1 {
-            margin: 0;
-            font-size: 1.4rem;
-        }
+        .header-title { font-size:1.6rem; font-weight:700; color:var(--text); line-height:1.2; }
+        .header-sub { margin-top:2px; font-size:.9rem; color:var(--muted); }
 
-        .brand .meta {
-            margin: 4px 0 0;
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
+        .top-nav { display:flex; gap:10px; justify-content:flex-end; font-weight:600; justify-self:end; }
+        .nav-btn { text-decoration:none; color:#fff; padding:10px 18px; border-radius:999px; background:linear-gradient(90deg,var(--accent) 0%, var(--accent-strong) 100%); border:1px solid rgba(37,99,235,.35); font-size:.95rem; font-weight:600; transition:transform .2s, box-shadow .2s, background .2s; box-shadow:0 10px 22px rgba(37,99,235,.18); }
+        .nav-btn:hover { transform:translateY(-1px); box-shadow:0 14px 28px rgba(37,99,235,.25); }
+        .nav-btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); box-shadow:none; }
+        .nav-btn.ghost:hover { background:var(--accent-soft); color:var(--accent-strong); }
 
-        .top-nav {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            font-weight: 600;
-        }
+        .content { display:flex; flex-direction:column; gap:12px; width:min(1100px,100%); margin:0 auto; }
+        .page-layout { display:grid; grid-template-columns:minmax(0,280px) 1fr; gap:20px; align-items:start; }
+        .sidebar { position:sticky; top:20px; }
+        .profile-card { background:#fff; border-radius:16px; border:1px solid var(--border); padding:18px; box-shadow:0 20px 40px rgba(15,23,42,.08); display:flex; flex-direction:column; gap:14px; }
+        .profile-head { display:flex; align-items:center; gap:12px; }
+        .profile-logo { height:64px; width:64px; object-fit:contain; border-radius:12px; border:1px solid var(--border); padding:6px; background:#fff; }
+        .profile-avatar { width:64px; height:64px; border-radius:50%; background:rgba(76,110,245,.15); display:grid; place-items:center; font-weight:600; color:var(--accent); font-size:1.2rem; }
+        .profile-info strong { font-size:1.1rem; }
+        .profile-info .helper { font-size:.85rem; color:var(--muted); }
+        .quick-links { display:flex; flex-direction:column; gap:8px; }
+        .quick-links a { text-decoration:none; color:var(--accent-strong); padding:10px 12px; border-radius:12px; background:#f4f7ff; border:1px solid rgba(76,110,245,.2); font-weight:600; transition:background .2s,color .2s; }
+        .quick-links a:hover { background:var(--accent); color:#fff; }
 
         .top-nav a {
             text-decoration: none;
-            color: var(--muted);
-            padding: 6px 14px;
+            color: var(--accent);
+            padding: 10px 14px;
             border-radius: 999px;
-            transition: background 0.2s ease, color 0.2s ease;
+            background: var(--accent-soft);
+            border: 1px solid #c7ddff;
+            transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .top-nav a:hover {
-            background: var(--accent-soft);
-            color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
         }
 
         .user-actions {
@@ -106,33 +74,25 @@
 
         .primary-btn {
             border: none;
-            border-radius: 14px;
-            padding: 10px 24px;
+            border-radius: 999px;
+            padding: 10px 20px;
             font-weight: 600;
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--accent) 0%, #1e40af 100%);
             color: #fff;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .primary-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 18px 36px rgba(76, 110, 245, 0.35);
-        }
-
-        .content {
-            width: min(1100px, 100%);
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
         }
 
         .card {
             background: var(--panel);
-            border-radius: 24px;
-            padding: 28px;
-            box-shadow: var(--shadow);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
             border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
@@ -149,13 +109,13 @@
 
         .section-header h2 {
             margin: 0;
-            font-size: 1.5rem;
+            font-size: var(--fs-xl);
         }
 
         .eyebrow {
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            font-size: 0.75rem;
+            font-size: var(--fs-xs);
             color: var(--accent);
             margin: 0;
         }
@@ -174,7 +134,7 @@
 
         label {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: var(--fs-md);
             color: var(--muted);
         }
 
@@ -204,7 +164,7 @@
             border: 1px solid rgba(92, 106, 196, 0.4);
             background: rgba(92, 106, 196, 0.08);
             color: var(--text);
-            font-size: 0.95rem;
+            font-size: var(--fs-md);
         }
 
         .table-wrapper {
@@ -227,7 +187,7 @@
             text-align: left;
             padding: 14px 16px;
             border-bottom: 1px solid var(--border);
-            font-size: 0.95rem;
+            font-size: var(--fs-md);
         }
 
         th {
@@ -239,96 +199,106 @@
             border-bottom: none;
         }
 
-        @media (max-width: 768px) {
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            th,
-            td {
-                padding: 12px;
-            }
-        }
+        @media (max-width:1024px){ .top-header{flex-direction:column;align-items:flex-start;} .page-layout{grid-template-columns:1fr;} .sidebar{position:static;} }
     </style>
 </head>
 <body>
     <div class="app-shell">
         <header class="top-header">
             <div class="brand">
-                {% if logo_url %}
-                    <img src="{{ logo_url }}" alt="Logo">
-                {% endif %}
+                <img src="{{ url_for('static', filename='evosys-logo.png') }}" alt="Evosys" class="brand-logo">
                 <div>
-                    <h1>Gerenciar Usuários</h1>
-                    <p class="meta">Admin: {{ username }}</p>
+                    <div class="header-title">Gerenciar Usuários</div>
+                    <div class="header-sub">Controle de acesso e manutenção de contas</div>
                 </div>
             </div>
             <nav class="top-nav">
-                <a href="{{ url_for('index') }}">Início</a>
-                <a href="{{ url_for('registros') }}">Registros</a>
-                <a href="{{ url_for('configuracoes') }}">Configurações</a>
+                <a href="{{ url_for('index') }}" class="nav-btn ghost">Início</a>
+                <a href="{{ url_for('logout') }}" class="nav-btn">Sair</a>
             </nav>
-            <div class="user-actions">
-                <a href="{{ url_for('logout') }}" class="primary-btn">Sair</a>
-            </div>
         </header>
 
         <main class="content">
-            <section class="card">
-                <div class="section-header">
-                    <div>
-                        <p class="eyebrow">Administração</p>
-                        <h2>Adicionar novo usuário</h2>
-                    </div>
-                    <p class="helper">Usuários administrativos podem gerar etiquetas e acessar registros.</p>
-                </div>
-                <form method="post" action="{{ url_for('usuarios') }}" class="form-grid">
-                    <div class="form-group">
-                        <label for="username">Usuário</label>
-                        <input type="text" id="username" name="username" placeholder="novo usuário" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Senha</label>
-                        <input type="password" id="password" name="password" placeholder="senha segura" required>
-                    </div>
-                    <div class="form-group">
-                        <label>&nbsp;</label>
-                        <button class="primary-btn" type="submit">Adicionar</button>
-                    </div>
-                </form>
-                {% if message %}
-                    <div class="message">{{ message }}</div>
-                {% endif %}
-            </section>
+            <div class="page-layout">
+                <aside class="sidebar">
+                    <section class="profile-card">
+                        <div class="profile-head">
+                            {% if logo_url %}
+                                <img src="{{ logo_url }}" alt="Logo" class="profile-logo">
+                            {% else %}
+                                <div class="profile-avatar">{{ username[0:1] if username else "U" }}</div>
+                            {% endif %}
+                            <div class="profile-info">
+                                <strong>{{ username or "Usuário" }}</strong>
+                                <div class="helper">Pronto para gerar etiquetas</div>
+                            </div>
+                        </div>
+                        <div class="quick-links">
+                            <a href="{{ url_for('configuracoes') }}">Configurações</a>
+                            {% if is_admin %}
+                                <a href="{{ url_for('usuarios') }}">Usuários</a>
+                            {% endif %}
+                            <a href="{{ url_for('registros') }}">Registros</a>
+                        </div>
+                    </section>
+                </aside>
+                <section>
+                    <section class="card">
+                        <div class="section-header">
+                            <div>
+                                <p class="eyebrow">Administração</p>
+                                <h2>Adicionar novo usuário</h2>
+                            </div>
+                            <p class="helper">Usuários administrativos podem gerar etiquetas e acessar registros.</p>
+                        </div>
+                        <form method="post" action="{{ url_for('usuarios') }}" class="form-grid">
+                            <div class="form-group">
+                                <label for="username">Usuário</label>
+                                <input type="text" id="username" name="username" placeholder="novo usuário" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input type="password" id="password" name="password" placeholder="senha segura" required>
+                            </div>
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button class="nav-btn" type="submit">Adicionar</button>
+                            </div>
+                        </form>
+                        {% if message %}
+                            <div class="message">{{ message }}</div>
+                        {% endif %}
+                    </section>
 
-            <section class="card">
-                <div class="section-header">
-                    <div>
-                        <p class="eyebrow">Controle</p>
-                        <h2>Usuários cadastrados</h2>
-                    </div>
-                    <p class="helper">Acompanhe quem tem acesso ao sistema e quando foram adicionados.</p>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Usuário</th>
-                                <th>Criado em</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for u in users %}
-                                <tr>
-                                    <td>{{ u.username }}</td>
-                                    <td>{{ u.created_at }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                    <section class="card">
+                        <div class="section-header">
+                            <div>
+                                <p class="eyebrow">Controle</p>
+                                <h2>Usuários cadastrados</h2>
+                            </div>
+                            <p class="helper">Acompanhe quem tem acesso ao sistema e quando foram adicionados.</p>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Usuário</th>
+                                        <th>Criado em</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for u in users %}
+                                        <tr>
+                                            <td>{{ u.username }}</td>
+                                            <td>{{ u.created_at }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+            </div>
         </main>
     </div>
 </body>
